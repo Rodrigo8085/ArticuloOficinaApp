@@ -25,5 +25,11 @@ namespace ArticuloOficinaApp.DataAccessLayer.Context
 
         public DbSet<Venta> Ventas { get; set; }
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(@"Server=localhost.\\SQLEXPRESS;Database=ArticuloOficina;Trusted_Connection=True;TrustServerCertificate=True",
+        //        x => x.MigrationsAssembly("ArticuloOficinaApp.DataAccessLayer"));
+        //}
+ 
     }
 }

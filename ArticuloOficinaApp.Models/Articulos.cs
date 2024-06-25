@@ -2,6 +2,7 @@
 
 namespace ArticuloOficinaApp.Models
 {
+    
     public class Articulos
     {
         [Key]
