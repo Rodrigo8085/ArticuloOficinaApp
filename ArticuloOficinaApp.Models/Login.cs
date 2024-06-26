@@ -3,36 +3,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ArticuloOficinaApp.Models
 {
+    [Table("login")]
     public class Login
     {
         [Key]
+        [Column("idLogin")]
         public int IdLogin { get; set; }
 
+        [Column("eMail")]
         public required string Email { get; set; }
 
+        [Column("password")]
         public required string Password { get; set; }
 
 
-        //public virtual Conductor Conductor { get; set; }
-
-        //[Key, ForeignKey("Cliente")]
-        //public int ClienteId { get; set; }
-
-        //public virtual required Cliente Cliente { get; set; }
-
-
-        //public required Cliente Cliente { get; set; }
-        //[Key]
-        ////[Column(Order = 1)]
-        //public int IdClientes { get; set; }
-
-        //[ForeignKey("IdClientes")]
-        //public required Cliente Cliente { get; set; }
-
-
+        [Column("idClientes")]
         [ForeignKey("Cliente")]
         public int IdClientes { get; set; }
 
-        public virtual required Cliente Cliente { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

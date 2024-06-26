@@ -2,8 +2,8 @@
 using ArticuloOfficinaApp.DataAccessLayer.Repository;
 using ArticuloOficinaApp.BusinessLogicLayer.Service;
 using ArticuloOficinaApp.DataAccessLayer.Context;
+using ArticuloOficinaApp.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +14,6 @@ builder.Services.AddControllers();
 
 // Se añaden conexion a Base de datos 
 var connectionString = builder.Configuration.GetConnectionString("Connection");
-//registrar servicio para la conexion
-//builder.Services.AddDbContext<AppDbContext>(
-//    options => options.UseSqlServer(connectionString)
-//);
-
 builder.Services.AddDbContext<AppDbContext>(
     options =>
         options.UseSqlServer(
@@ -26,17 +21,21 @@ builder.Services.AddDbContext<AppDbContext>(
             x => x.MigrationsAssembly("ArticuloOfficinaApp.DataAccessLayer")
 ));
 
+// Repositories 
+builder.Services.AddScoped<IGenericRepository<Articulos>, ArticuloRepository>();
+builder.Services.AddScoped<IGenericRepository<Cliente>, ClienteRepository>();
+builder.Services.AddScoped<IGenericRepository<Tienda>, TiendaRepository>();
+builder.Services.AddScoped<IGenericRepository<Login>, LoginRepository>();
+builder.Services.AddScoped<IGenericRepository<Tienda_Articulos>, TiendaArticulosRepository>();
+builder.Services.AddScoped<IGenericRepository<Venta>, VentaRepository>();
+
+// Services
+builder.Services.AddScoped<IArticulosService, ArticuloService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IVentaService, VentaService>();
+
+
 var app = builder.Build();
-
-
-
-
-
-//builder.Services.AddScoped<IGenericRepository<Articulos>> ();
-//builder.Services.AddScoped<IArticulosService, ArticuloService>();
-
-//builder.Services.AddScoped<IGenericRepository<Articulos>>();
-//builder.Services.AddScoped<ArticuloRepository, ArticuloRepository>();
 
 
 app.UseDefaultFiles();

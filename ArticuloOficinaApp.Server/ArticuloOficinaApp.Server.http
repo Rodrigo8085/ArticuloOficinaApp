@@ -1,6 +1,5 @@
 @ArticuloOficinaApp.Server_HostAddress = http://localhost:5190
 
-GET {{ArticuloOficinaApp.Server_HostAddress}}/weatherforecast/
+GET {{ArticuloOficinaApp.Server_HostAddress}}/api/articulos/obtenerTodos
 Accept: application/json
-
 ###

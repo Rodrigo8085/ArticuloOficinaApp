@@ -7,7 +7,7 @@ using ArticuloOficinaApp.BusinessLogicLayer.Service;
 
 namespace ArticuloOficinaApp.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/articulos")]
     [ApiController]
     public class ArticuloController : ControllerBase
     {
@@ -16,42 +16,85 @@ namespace ArticuloOficinaApp.Server.Controllers
         {
             _articuloService = articuloServ;
         }
+
         // GET: api/<ArticuloController>
         [HttpGet]
+        [Route("obtenerTodos")]
         public async Task<IActionResult> Lista()
         {
             IQueryable<Articulos> queryArticulosSql = await _articuloService.ObtenerTodos();
             List<VMArticulo> lista = queryArticulosSql.Select(a => new VMArticulo() {
                 IdArticulos = a.IdArticulos,
                 Codigo = a.Codigo,
+                Descripcion = a.Descripcion,
+                Precio = a.Precio,
+                Imagen = a.Imagen,
+                Stock = a.Stock
             }).ToList();
 
             return StatusCode(StatusCodes.Status200OK, lista);
         }
 
-        // GET api/<ArticuloController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ArticuloController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("ver")]
+        public async Task<IActionResult> Ver(int id)
         {
+ 
+            Articulos respuesta = await _articuloService.Obtener(id);
+            return StatusCode(StatusCodes.Status200OK, new
+            {
+                value = respuesta
+            });
         }
 
-        // PUT api/<ArticuloController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost]
+        [Route("agregar")]
+        public async Task<IActionResult> Agregar([FromBody]VMArticulo modelo)
         {
+            Articulos nuevoArticulo = new Articulos()
+            {
+                Descripcion = modelo.Descripcion,
+                Codigo = modelo.Codigo,
+                Precio = (double)modelo.Precio,
+                Imagen = modelo.Imagen,
+                Stock = (int)modelo.Stock
+            };
+            bool respuesta = await _articuloService.Insertar(nuevoArticulo);
+            return StatusCode(StatusCodes.Status200OK, new
+            {
+                value = respuesta
+            });
         }
 
-        // DELETE api/<ArticuloController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut]
+        [Route("actualizar")]
+        public async Task<IActionResult> Actualizar([FromBody] VMArticulo modelo)
         {
+            Articulos nuevoArticulo = new Articulos()
+            {
+                Descripcion = modelo.Descripcion,
+                Codigo = modelo.Codigo,
+                Precio = (double)modelo.Precio,
+                Imagen = modelo.Imagen,
+                Stock = (int)modelo.Stock
+            };
+            bool respuesta = await _articuloService.Actualizar(nuevoArticulo);
+            return StatusCode(StatusCodes.Status200OK, new
+            {
+                value = respuesta
+            });
+        }
+
+        [HttpDelete]
+        [Route("borrar")]
+        public async Task<IActionResult> Borrar(int id)
+        {
+ 
+            bool respuesta = await _articuloService.Eliminar(id);
+            return StatusCode(StatusCodes.Status200OK, new
+            {
+                value = respuesta
+            });
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ArticuloOfficinaApp.DataAccessLayer.Repository
 {
-    public interface IGenericRepository<TEntityModel> where TEntityModel : class
+    public interface ILoginRepository<TEntityModel> where TEntityModel : class
     {
         Task<bool> Insertar(TEntityModel modelo);
 
@@ -18,5 +18,6 @@ namespace ArticuloOfficinaApp.DataAccessLayer.Repository
         Task<TEntityModel> Obtener(int id);
 
         Task<IQueryable<TEntityModel>> ObtenerTodos();
+        Task<Login> buscarPorEmailPass(string email, string password);
     }
 }
