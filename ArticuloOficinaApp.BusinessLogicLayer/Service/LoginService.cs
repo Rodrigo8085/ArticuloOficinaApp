@@ -10,29 +10,33 @@ namespace ArticuloOficinaApp.BusinessLogicLayer.Service
 {
     public class LoginService : ILoginService
     {
+        private readonly IGenericRepository<Login> _loginRepoG;
+
         private readonly ILoginRepository<Login> _loginRepo;
-        public LoginService(ILoginRepository<Login> clienteRepo)
+
+        public LoginService(IGenericRepository<Login> clienteRepoG)
         {
-            _loginRepo = clienteRepo;
+            _loginRepoG = clienteRepoG;
+            _loginRepo = (ILoginRepository<Login>?)clienteRepoG;
         }
         public async Task<bool> Actualizar(Login modelo)
         {
-            return await _loginRepo.Actualizar(modelo);
+            return await _loginRepoG.Actualizar(modelo);
         }
 
         public async Task<bool> Eliminar(int id)
         {
-            return await _loginRepo.Eliminar(id);
+            return await _loginRepoG.Eliminar(id);
         }
 
         public async Task<bool> Insertar(Login modelo)
         {
-            return await _loginRepo.Insertar(modelo);
+            return await _loginRepoG.Insertar(modelo);
         }
 
         public async Task<Login> Obtener(int id)
         {
-            return await _loginRepo.Obtener(id);
+            return await _loginRepoG.Obtener(id);
         }
 
         public async Task<Login> validarSesion(string email, string password)

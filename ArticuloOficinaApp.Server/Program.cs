@@ -25,7 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddScoped<IGenericRepository<Articulos>, ArticuloRepository>();
 builder.Services.AddScoped<IGenericRepository<Cliente>, ClienteRepository>();
 builder.Services.AddScoped<IGenericRepository<Tienda>, TiendaRepository>();
-builder.Services.AddScoped<ILoginRepository<Login>, LoginRepository>();
+builder.Services.AddScoped<IGenericRepository<Login>, LoginRepository>();
 builder.Services.AddScoped<IGenericRepository<Tienda_Articulos>, TiendaArticulosRepository>();
 builder.Services.AddScoped<IGenericRepository<Venta>, VentaRepository>();
 
