@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ArticuloOfficinaApp.DataAccessLayer.Repository
 {
-    public class LoginRepository : IGenericRepository<Login>
+    public class LoginRepository : ILoginRepository<Login>
     {
         private readonly AppDbContext _appDbContext;
         public LoginRepository(AppDbContext context)
